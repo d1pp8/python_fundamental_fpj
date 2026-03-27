@@ -1,5 +1,7 @@
 from utilities import input_manager, tables , menu, pagination
 from services.search_logger import log_search
+from services.statistic import get_top_searches
+
 
 """ Created a controller to move logic from main to a separate layer """
 
@@ -14,7 +16,7 @@ def search_by_keyword(films):
 
     def query_create_func(page):
 
-        result = films.find_by_keyword(keyword=keyword,limit=PAGE_SIZE,page=page)
+        result = films.find_by_keyword(keyword=keyword.lower(),limit=PAGE_SIZE,page=page)
 
         log_search(search_type="keyword", param={"keyword": keyword}, result_count=len(result))
 
@@ -72,3 +74,18 @@ def search_by_genres_and_year(films):
 
             elif choice == "0":
                 return None
+
+
+
+
+def show_statistics():
+    stats = get_top_searches()
+
+    print("\n🔥 TOP 5 SEARCHES:\n")
+
+    for i, item in enumerate(stats, start=1):
+        search_type = item["_id"]["search_type"]
+        param = tables.format_params(item["_id"]["param"])
+        count = item["count"]
+
+        print(f"{i}. {search_type}: {param} → {count} times")

@@ -21,7 +21,7 @@ while True:
         film_controller.search_by_genres_and_year(films)
 
     elif choice == "3":
-        pass
+        film_controller.show_statistics()
 
 
     elif choice == "0":
