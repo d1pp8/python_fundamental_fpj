@@ -1,6 +1,6 @@
 from utilities import input_manager, tables , menu, pagination
 from services.search_logger import log_search
-from services.statistic import get_top_searches
+from services import statistic
 
 
 """ Created a controller to move logic from main to a separate layer """
@@ -108,15 +108,34 @@ def show_statistics():
     Point 3. From main menu
     """
 
-    # I must add one more Statistic for last 5 searched
-    pass
+    while True:
+        menu.menu_for_statistic()
+        choice = input_manager.check_choice("\n️Select the number: ", ["1", "2", "9", "0"])
 
-    stats = get_top_searches()
-    print("\n🔥 TOP 5 SEARCHES:\n")
+        if choice == "1":
 
-    for i, item in enumerate(stats, start=1):
-        search_type = item["_id"]["search_type"]
-        param = tables.format_params(item["_id"]["param"])
-        count = item["count"]
+            stats = statistic.get_top_searches()
+            tables.print_top_searches(stats)
 
-        print(f"{i}. {search_type}: {param} → {count} times")
+            menu.menu_navigate_for_statistic()
+            while True:
+                second_choice = input_manager.check_choice("\n⚙️Your option: ", ["9", "0"])
+                if second_choice == "9":
+                    break
+                return None
+
+
+        elif choice == "2":
+            stats = statistic.get_last_searches()
+            tables.print_last_searches(stats)
+
+            menu.menu_navigate_for_statistic()
+            while True:
+                second_choice = input_manager.check_choice("\n⚙️Your option: ", ["9", "0"])
+                if second_choice == "9":
+                    break
+                return None
+
+        elif choice == "0":
+            return None
+

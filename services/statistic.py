@@ -24,3 +24,18 @@ def get_top_searches(limit=5):
     ]
 
     return list(collection.aggregate(query))
+
+
+def get_last_searches(limit=5):
+    collection = mongo_client.get_collection(config.MONGO_COLLECTION)
+
+    query = [
+        {
+            "$sort": {"timestamp": -1}
+        },
+        {
+            "$limit": limit
+        }
+    ]
+
+    return list(collection.aggregate(query))

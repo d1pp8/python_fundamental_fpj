@@ -15,7 +15,6 @@ def show_main_menu():
 
 
 def show_menu_for_range_years(name):
-
     """ Utility for displaying the menu for specifying a range of years or going back or to the main menu """
 
     width = 40
@@ -28,14 +27,14 @@ def show_menu_for_range_years(name):
     print("-" * width)
 
 
+
 def genre_selection():
 
-    """ Function for displaying a short menu of item selections """
+    """ Utility for displaying a short menu of item selections """
 
     main_string = "🎥Select a genre:".center(45)
 
     length = int(len(main_string)/2)
-
     print(main_string)
     print("[🔍ID or Name]".center(length), end = "")
     print("[🚪Exit]".center(length), end="")
@@ -44,7 +43,7 @@ def genre_selection():
 
 def select_release_years(name):
 
-    """ Function for displaying a short menu of selections when specifying years """
+    """ Utility for displaying a short menu of selections when specifying years """
     main_string = f"🔍 Enter year or range for '{name}' (e.g. 1999 or 1990-2000)"
 
     print(f"\n{main_string}")
@@ -54,3 +53,27 @@ def select_release_years(name):
     print("[🔙Back]".center(length), end="")
     print("[🚪Exit]".center(length), end="")
     print("\n\n⚙️Your option: ", end="")
+
+
+def menu_for_statistic():
+
+    """ Utility for displaying the Statistic menu """
+
+    width = 32
+    print("\n" + "=" * width)
+    print("📊 Statistics".center(width))
+    print("=" * width)
+    print("  1. 🔥 Top 5 popular queries")
+    print("  2. 🌙 Last 5 queries")
+    print("  0. 🚪 Exit")
+    print("=" * width)
+
+
+def menu_navigate_for_statistic():
+    width = 22
+    print("\n" + "=" * width)
+    print("Enter the next action:")
+    print("=" * width)
+    print("9.🔙 Back")
+    print("0.🚪 Exit")
+    print("=" * width)

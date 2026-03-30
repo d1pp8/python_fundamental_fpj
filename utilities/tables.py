@@ -1,3 +1,4 @@
+from utilities import input_manager
 
 def draw_table_with_ten_movie(films, counter: int, page_number):
 
@@ -30,9 +31,19 @@ def draw_table_with_all_genres(films_genres):
     print("=" * width)
 
 
-def format_params(param):
-    if "keyword" in param:
-        return f"keyword = '{param['keyword']}'"
-    if "genre" in param:
-        return f"{param['genre']} ({param['year_range'][0]}-{param['year_range'][1]})"
-    return str(param)
+def print_top_searches(stats):
+
+    print("\n🔥 TOP 5 QUERIES:")
+    for i, item in enumerate(stats, start=1):
+        search_type = item["_id"]["search_type"]
+        param = input_manager.format_params(item["_id"]["param"])
+        count = item["count"]
+        print(f"{i}. {search_type}: {param} → {count} times")
+
+def print_last_searches(stats):
+    print("\n🌙 LAST 5 QUERIES:")
+    for i, item in enumerate(stats, start=1):
+        search_type = item["search_type"]
+        param = input_manager.format_params(item["param"])
+        print(f"{i}. {search_type}: {param}")
+
