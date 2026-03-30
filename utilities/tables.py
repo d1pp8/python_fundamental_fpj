@@ -1,6 +1,8 @@
 
 def draw_table_with_ten_movie(films, counter: int, page_number):
 
+    """ Draws a table with 10 films """
+
     width = 45
     print("\n" + "🎬 Your result 🎬".center(width, "="))
 
@@ -12,8 +14,10 @@ def draw_table_with_ten_movie(films, counter: int, page_number):
 
 
 
-""" A simple function for clearly displaying genres """
+
 def draw_table_with_all_genres(films_genres):
+
+    """ A simple function for clearly displaying genres """
 
     width = 45
     print("\n" + " List of films genres ".center(width, "="))

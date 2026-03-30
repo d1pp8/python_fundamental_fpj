@@ -1,3 +1,5 @@
+from utilities import menu
+
 def check_choice(question: str, valid_choices: list):
 
     """ FOR MENU Checking the validity of the answer to the question """
@@ -12,12 +14,20 @@ def check_choice(question: str, valid_choices: list):
 
 
 
-def get_valid_input(question: str, validator, gener):
+def get_valid_input(validator, gener):
 
     """ Validator function to check the presence of data """
 
     while True:
-        value = input(question).strip()
+        menu.select_release_years(gener["name"])
+        value = input().strip().lower()
+
+        if value == "back":
+            return "back", "back"
+
+        if value == "exit":
+            return None, None
+
         result = validator(value, gener)
 
         if result:
@@ -25,6 +35,7 @@ def get_valid_input(question: str, validator, gener):
 
         if result is None:
             print("\n❌ Invalid input")
+
 
 
 
@@ -50,7 +61,7 @@ def validate_year_input(value:str, gener):
 
         # If the entered range is not entered correctly, then information is displayed about the range in which we have films.
         elif start < gener["min_year"] or end > gener["max_year"]:
-            print_range_checker(gener)
+            print_range_checker(gener, start, end)
             return False
 
 
@@ -61,7 +72,7 @@ def validate_year_input(value:str, gener):
     if value.isdigit():
         value = int(value)
         if value < gener["min_year"] or value > gener["max_year"]:
-            print_range_checker(gener)
+            print_range_checker(gener, value)
             return False
 
         year = int(value)
@@ -71,13 +82,15 @@ def validate_year_input(value:str, gener):
     return None
 
 
-
-def print_range_checker(gener):
+def print_range_checker(gener, start, end=None):
 
         """ Function to display an error if the user entered an incorrect year """
-
-        print(f"\n❌No results for \'{gener['name']}\' in range \'{gener['min_year']}\'-\'{gener['max_year']}\'")
-        print(f"➡️We have movies in the \'{gener['name']}\' only from {gener["min_year"]}-{gener["max_year"]} years.")
+        if end is not None:
+            print(f"\n❌No results for \'{gener['name']}\' in range \'{start}\'-\'{end}\'")
+            print(f"➡️We have movies in the \'{gener['name']}\' only from {gener["min_year"]}-{gener["max_year"]} years.")
+        else:
+            print(f"\n❌No results for \'{gener['name']}\' in year \'{start}\'")
+            print(f"➡️We have movies in the \'{gener['name']}\' only from {gener["min_year"]}-{gener["max_year"]} years.")
 
 
 
@@ -93,14 +106,11 @@ def get_user_gener(genres):
     genres_by_name = {genre_id["name"].lower(): genre_id for genre_id in genres}
 
     while True:
-        value = input(
-                    "- Select the genre (\'ID\'/ or \'name\')"
-                    "\n- Write \'0\' for Exit"
-                    "\n\n🎈Your option: "
-                    ).strip().lower()
+        menu.genre_selection()
+        value = input().strip().lower()
 
-        # For exit from func
-        if value == "0":
+        # For exit from func to main menu
+        if value == "exit":
             return None
 
         # Check if the value was a number
@@ -109,7 +119,7 @@ def get_user_gener(genres):
             if value in genres_by_id:
                 return genres_by_id[value]
 
-            print("\n❌Invalid number")
+            print("\n❌Invalid number\n")
             continue
 
 
@@ -117,4 +127,4 @@ def get_user_gener(genres):
         if value in genres_by_name:
             return genres_by_name[value]
 
-        print("\n❌Invalid name")
+        print("\n❌Invalid name\n")

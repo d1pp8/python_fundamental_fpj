@@ -9,11 +9,13 @@ from services.statistic import get_top_searches
 PAGE_SIZE = 10
 
 
-""" 
-Controller for finding films by keyword
-Point 1. From main menu 
-"""
 def search_by_keyword(films):
+
+    """
+    Controller for finding films by keyword
+    Point 1. From main menu
+    """
+
     keyword = input("\n🔍 Enter your \'keyword\': ")
 
 
@@ -34,11 +36,12 @@ def search_by_keyword(films):
 
 
 
-""" 
-Controller for finding films by genres and years release 
-Point 2. From main menu 
-"""
 def search_by_genres_and_year(films):
+
+    """
+    Controller for finding films by genres and years release
+    Point 2. From main menu
+    """
 
     films_genres = films.get_all_genres_with_dates()
 
@@ -54,18 +57,24 @@ def search_by_genres_and_year(films):
             print("⛔Information about film genres has stopped.")
             return None
 
-
-
         while True:
 
-            # Display a menu with an option to exit or enter a range of release years.
+            # Display a menu with an option to enter a range of release years or exit.
             menu.show_menu_for_range_years(selected_genre["name"])
-            choice = input_manager.check_choice("\nSelect the number: ", ["1","0"])
+            choice = input_manager.check_choice("\nSelect the number: ", ["1", "9", "0"])
 
             # Here we add a search by year and a check of the validity of the entered data.
             if choice == "1":
-                start_year, end_year = input_manager.get_valid_input(f"\n🗓️Enter year or range for {selected_genre["name"]}" "\nIn format (yyyy-yyyy): ", input_manager.validate_year_input, selected_genre)
 
+                start_year, end_year = input_manager.get_valid_input(input_manager.validate_year_input, selected_genre)
+
+                # For selected another gener
+                if start_year == "back":
+                    break
+
+                # For exit to main menu
+                if start_year is None:
+                    return None
 
                 def query_create_func(page):
 
@@ -82,17 +91,20 @@ def search_by_genres_and_year(films):
                 # Function to display 10 movies received by a request
                 pagination.get_ten_films(query_create_func)
 
+            # For back to select another gener
+            if choice == "9":
+                break
+
             return None
 
 
 
-""" 
-Controller for displaying statistics on popular and recent queries
-Point 3. From main menu 
-"""
 def show_statistics():
 
-
+    """
+    Controller for displaying statistics on popular and recent queries
+    Point 3. From main menu
+    """
 
     # I must add one more Statistic for last 5 searched
     pass
