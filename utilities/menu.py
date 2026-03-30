@@ -36,9 +36,9 @@ def genre_selection():
     print("\n\n️⚙️Your option: ",end="")
 
 
-def select_release_years(name):
+def select_release_years(name, min, max):
     """ Utility for displaying a short menu of selections when specifying years """
-    main_string = f"🔍 Enter year or range for '{name}' (e.g. 1999 or 1990-2000)"
+    main_string = f"🔍 Enter year or range for '{name}' (e.g. 1999 or {min}-{max})"
 
     print(f"\n{main_string}")
 

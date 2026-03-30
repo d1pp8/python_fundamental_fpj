@@ -19,7 +19,7 @@ def get_valid_input(validator, gener):
     """ Validator function to check the presence of data """
 
     while True:
-        menu.select_release_years(gener["name"])
+        menu.select_release_years(gener["name"], gener["min_year"], gener["max_year"])
         value = input().strip().lower()
 
         if value == "back":

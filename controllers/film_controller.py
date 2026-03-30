@@ -28,7 +28,7 @@ def search_by_keyword(films):
         # Logging a query to a MongoDB database
         log_search(search_type="keyword",param={"keyword": keyword}, result_count=len(result))
 
-        return result or None
+        return result
 
     # Function to display 10 movies received by a request
     pagination.get_ten_films(query_create_func)
@@ -85,7 +85,7 @@ def search_by_genres_and_year(films):
                     # Logging a query to a MongoDB database
                     log_search(search_type="genre_year", param = {"genre": selected_genre["name"], "year_range": [start_year, end_year]}, result_count=len(result))
 
-                    return result or None
+                    return result
 
                 # Function to display 10 movies received by a request
                 pagination.get_ten_films(query_create_func)
