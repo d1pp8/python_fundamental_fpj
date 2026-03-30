@@ -27,7 +27,7 @@ def show_menu_for_range_years(name):
 
 def genre_selection():
     """ Utility for displaying a short menu of item selections """
-    main_string = "🎥Select a genre:".center(45)
+    main_string = "🎥Select a genre or exit:".center(45)
 
     length = int(len(main_string)/2)
     print(main_string)

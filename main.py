@@ -23,7 +23,6 @@ while True:
     elif choice == "3":
         film_controller.show_statistics()
 
-
     elif choice == "0":
         print("\n🖐️Work is completed, bye🖐️")
         break
