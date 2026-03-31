@@ -15,7 +15,7 @@ def search_by_keyword(films):
     Point 1. From main menu
     """
 
-    keyword = input("\n🔍 Enter your \'keyword\': ")
+    keyword = input("\n🔍 Enter your \'keyword\': ").lower()
 
 
     def query_create_func(page):
@@ -23,7 +23,7 @@ def search_by_keyword(films):
         """ A function closure was created to avoid duplicating a large piece of code
         A closure function specifically for keyword searches """
 
-        result = films.find_by_keyword(keyword=keyword.lower(), limit=PAGE_SIZE,page=page)
+        result = films.find_by_keyword(keyword=keyword, limit=PAGE_SIZE,page=page)
 
         # Logging a query to a MongoDB database
         log_search(search_type="keyword",param={"keyword": keyword}, result_count=len(result))
