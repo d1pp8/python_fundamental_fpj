@@ -53,49 +53,35 @@ def search_by_genres_and_year(films):
         # Returns to the main menu if the user does not want to select a genre
         # And show a message about info has stopped
         if selected_genre is None:
-            print("⛔Information about film genres has stopped.")
+            print("⏸️Genre selection paused.")
             return None
 
         while True:
 
-            # Display a menu with an option to enter a range of release years or exit.
-            menu.show_menu_for_range_years(selected_genre["name"])
-            choice = input_manager.check_choice("\nSelect the number: ", ["1", "9", "0"])
+            start_year, end_year = input_manager.get_valid_input(input_manager.validate_year_input, selected_genre)
 
-            # Here we add a search by year and a check of the validity of the entered data.
-            if choice == "1":
-
-                start_year, end_year = input_manager.get_valid_input(input_manager.validate_year_input, selected_genre)
-
-                # For selected another gener
-                if start_year == "back":
-                    break
-
-                # For exit to main menu
-                if start_year is None:
-                    return None
-
-                def query_create_func(page):
-
-                    """ A function closure was created to avoid duplicating a large piece of code
-                     The closure function is specifically for searching by genre and year """
-
-                    result = films.search_films_by_year_range_by_genre(gener_id=selected_genre["category_id"], start_year=start_year, end_year=end_year, limit=PAGE_SIZE, page=page)
-
-                    # Logging a query to a MongoDB database
-                    log_search(search_type="genre_year", param = {"genre": selected_genre["name"], "year_range": [start_year, end_year]}, result_count=len(result))
-
-                    return result
-
-                # Function to display 10 movies received by a request
-                pagination.get_ten_films(query_create_func)
-
-            # For back to select another gener
-            elif choice == "9":
+            # For selected another gener
+            if start_year == "back":
                 break
 
-            elif choice == "0":
+            # For exit to main menu
+            if start_year is None:
                 return None
+
+            def query_create_func(page):
+
+                """ A function closure was created to avoid duplicating a large piece of code
+                 The closure function is specifically for searching by genre and year """
+
+                result = films.search_films_by_year_range_by_genre(gener_id=selected_genre["category_id"], start_year=start_year, end_year=end_year, limit=PAGE_SIZE, page=page)
+
+                # Logging a query to a MongoDB database
+                log_search(search_type="genre_year", param = {"genre": selected_genre["name"], "year_range": [start_year, end_year]}, result_count=len(result))
+
+                return result
+
+            # Function to display 10 movies received by a request
+            pagination.get_ten_films(query_create_func)
 
 
 
@@ -118,10 +104,11 @@ def show_statistics():
 
             menu.menu_navigate_for_statistic()
             while True:
-                second_choice = input_manager.check_choice("\n⚙️Your option: ", ["9", "0"])
-                if second_choice == "9":
+                second_choice = input_manager.check_choice("\n⚙️Your option: ", ["back", "exit"])
+                if second_choice == "back":
                     break
                 return None
+
 
 
         elif choice == "2":
@@ -130,8 +117,8 @@ def show_statistics():
 
             menu.menu_navigate_for_statistic()
             while True:
-                second_choice = input_manager.check_choice("\n⚙️Your option: ", ["9", "0"])
-                if second_choice == "9":
+                second_choice = input_manager.check_choice("\n⚙️Your option: ", ["back", "exit"])
+                if second_choice == "back":
                     break
                 return None
 

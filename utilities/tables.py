@@ -27,18 +27,25 @@ def draw_table_with_all_genres(films_genres):
 
 def print_top_searches(stats):
     """ A utility for displaying top search queries from MongoDB """
-    print("\n🔥 TOP 5 QUERIES:")
+    print()
+    print("=" * 52)
+    print("🔥TOP 5 QUERIES🔥".center(52))
+    print("=" * 52)
     for i, item in enumerate(stats, start=1):
         search_type = item["_id"]["search_type"]
         param = input_manager.format_params(item["_id"]["param"])
         count = item["count"]
-        print(f"{i}. {search_type}: {param} → {count} times")
+        print(f"{i}. {search_type:<10} | {param:<25} | {count} times")
+    print("=" * 52)
 
 def print_last_searches(stats):
     """ A utility for displaying the last 5 search queries from MongoDB """
-    print("\n🌙 LAST 5 QUERIES:")
+    print()
+    print("=" * 40)
+    print("🌙LAST 5 QUERIES🌙".center(40))
+    print("=" * 40)
     for i, item in enumerate(stats, start=1):
         search_type = item["search_type"]
         param = input_manager.format_params(item["param"])
-        print(f"{i}. {search_type}: {param}")
-
+        print(f"{i}. {search_type:<10} | {param:<25}")
+    print("=" * 40)

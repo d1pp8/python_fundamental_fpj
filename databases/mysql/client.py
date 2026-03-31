@@ -14,6 +14,7 @@ class MysqlClient:
                 cursor.execute(query, param)
                 return cursor.fetchall()
 
+    # don't use, for latter maybe
     """ A function that performs SQL queries on data if the program needs a dictionary. """
     def fetch_one(self, query, param=None):
         with pymysql.connect(**self.__config, cursorclass=DictCursor) as connection:

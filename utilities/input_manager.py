@@ -60,7 +60,7 @@ def validate_year_input(value:str, gener):
             return None
 
         # If the entered range is not entered correctly, then information is displayed about the range in which we have films.
-        elif start < gener["min_year"] or end > gener["max_year"]:
+        elif  gener["max_year"] < start < gener["min_year"] or gener["max_year"] < end < gener["min_year"]:
             print_range_checker(gener, start, end)
             return False
 

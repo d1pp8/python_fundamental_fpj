@@ -12,6 +12,7 @@ def show_main_menu():
     print("=" * width)
 
 
+# don't use, for latter maybe
 def show_menu_for_range_years(name):
     """ Utility for displaying the menu for specifying a range of years or going back or to the main menu """
     width = 40
@@ -38,15 +39,20 @@ def genre_selection():
 
 def select_release_years(name, min, max):
     """ Utility for displaying a short menu of selections when specifying years """
+
+    width = 59
+    print()
+    print("=" * width)
     main_string = f"🔍 Enter year or range for '{name}' (e.g. 1999 or {min}-{max})"
 
-    print(f"\n{main_string}")
+    print(f"{main_string}")
 
     length = int(len(main_string) / 2)
 
     print("[🔙Back]".center(length), end="")
-    print("[🚪Exit]".center(length), end="")
-    print("\n\n⚙️Your option: ", end="")
+    print("[🚪Exit]".center(length))
+    print("=" * width)
+    print("\n⚙️Your option: ", end="")
 
 
 def menu_for_statistic():
@@ -64,9 +70,7 @@ def menu_for_statistic():
 def menu_navigate_for_statistic():
     """ Utility for navigating the statistics menu """
     width = 22
-    print("\n" + "=" * width)
     print("Enter the next action:")
     print("=" * width)
-    print("9.🔙 Back")
-    print("0.🚪 Exit")
+    print("[🔙 Back]" + "\t" + "  " +"[🚪Exit]")
     print("=" * width)
